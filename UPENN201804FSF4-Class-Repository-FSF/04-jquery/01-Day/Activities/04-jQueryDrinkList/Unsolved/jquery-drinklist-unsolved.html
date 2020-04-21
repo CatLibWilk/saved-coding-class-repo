@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Content!</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+  <h1>Drink Selection!</h1>
+  <hr>
+
+  <div id="drink-options"></div>
+
+  <button id="make">Make</button>
+  <button id="reset">Reset</button>
+
+  <script type="text/javascript">
+
+    var drinkList = [
+      "Coffee: $5",
+      "Espresso: $7",
+      "Cappuccino: $6",
+      "Latte: $4",
+      "Tea: $3",
+      "Ice Coffee: $6",
+      "Ice Espresso: $8",
+      "Ice Latte: $6",
+      "Ice Tea: $4"
+    ];
+    
+    var body = $("body");
+    function makeList (){
+      for (i=0; i<drinkList.length; i++){
+        var newDiv = $("<div>");
+        newDiv.text(drinkList[i]);
+        $("#drink-options").append(newDiv);
+      }
+      body.css('background-image', 'url("https://assets.visitphilly.com/wp-content/uploads/2018/02/Philly-Skyline-blue-sky-B-Krist-VP-2200x1237.jpg');
+    }
+
+    function reset(){
+      $("#drink-options").empty();
+      body.css('background-image', 'url(""');
+      body.css('background-color', 'white');
+    }
+
+    $("#make").on("click", makeList); 
+
+    $("#reset").on("click", reset);
+
+    // Using JavaScript programmatically append each drinkList item to the "drink-options" div
+    // HINT: you will need a for loop to go over each element in the list
+
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jQuery Calculator</title>
+
+  <!-- Added link to the jQuery Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Added a link to Bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+<body>
+
+  <div className="jumbotron">
+    <h1 className="text-center">jQuery Calculator</h1>
+    <h3 className="text-center">Perform basic mathematic operations using the power of jQuery!</h3>
+  </div>
+
+  <div className="container">
+
+    <div className="row">
+
+      <!-- Calculator Panel -->
+      <div className="col-lg-4">
+        <div className="card">
+          <h3 className="card-header">Calculator</h3>
+
+          <div className="card-body">
+            <button id="button-1" className="btn btn-primary number m-2" value="1"><h1>1</h1></button>
+            <button id="button-2" className="btn btn-primary number m-2" value="2"><h1>2</h1></button>
+            <button id="button-3" className="btn btn-primary number m-2" value="3"><h1>3</h1></button>
+            <button id="button-plus" className="btn btn-danger operator m-2" value="plus"><h1>+</h1></button>
+            <br><br>
+            <button id="button-4" className="btn btn-primary number m-2" value="4"><h1>4</h1></button>
+            <button id="button-5" className="btn btn-primary numbe m-2" value="5"><h1>5</h1></button>
+            <button id="button-6" className="btn btn-primary number" m-2 value="6"><h1>6</h1></button>
+            <button id="button-minus" className="btn btn-danger operator m-2" value="minus"><h1>&minus;</h1></button>
+            <br><br>
+            <button id="button-7" className="btn btn-primary number m-2" value="7"><h1>7</h1></button>
+            <button id="button-8" className="btn btn-primary number m-2" value="8"><h1>8</h1></button>
+            <button id="button-9" className="btn btn-primary number m-2" value="9"><h1>9</h1></button>
+            <button id="button-multiply" className="btn btn-danger operator m-2" value="times"><h1>&times;</h1></button>
+            <br><br>
+            <button id="button-0" className="btn btn-primary number m-2" value="0"><h1>0</h1></button>
+            <button id="button-divide" className="btn btn-danger operator m-2" value="divide"><h1>&divide;</h1></button>
+            <button id="button-power" className="btn btn-danger operator m-2" value="power"><h1>^</h1></button>
+            <button id="button-equal" className="btn btn-success equal m-2" value="equals"><h1>=</h1></button>
+            <br><br>
+            <button id="button-clear" className="btn btn-dark clear m-2" value="clear"><h1>clear</h1></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result Panel -->
+      <div className="col-lg-6">
+        <div className="card">
+          <h3 className="card-header">Result</h3>
+          <div className="card-body">
+            <h1 id="first-number"></h1>
+            <h1 id="operator"></h1>
+            <h1 id="second-number"></h1>
+            <hr>
+            <h1 id="result"></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+
+      // Make our variables global to the runtime of our application
+      var firstNumber = 0;
+      var secondNumber = 0;
+      var operator = "";
+      var result = 0;
+      var isOperatorChosen = false;
+      var isCalculated = false;
+
+      // Use a function to initialize our calculator.
+      // This way when the user hits clear, we can guarantee a reset of the app.
+      function initializeCalculator() {
+        firstNumber = "";
+        secondNumber = "";
+        operator = "";
+        isOperatorChosen = false;
+        isCalculated = false;
+
+        $("#first-number, #second-number, #operator, #result").empty();
+      }
+
+      $(".number").on("click", function() {
+
+        // Check if we've already run a calculation, if so... we'll just.
+        if (isCalculated) {
+          return false;
+        }
+
+        // If operator is chosen, we should be writing the secondNumber, otherwise, the firstNumber
+        if (isOperatorChosen) {
+          secondNumber += $(this).val();
+          $("#second-number").text(secondNumber);
+
+        }
+        else {
+          firstNumber += $(this).val();
+          $("#first-number").text(firstNumber);
+        }
+
+      });
+      $(".operator").on("click", function() {
+
+        // Check if a first number has already been selected
+        // Or we've already run a calculation, if so we just exit.
+        if (!firstNumber || isCalculated) {
+          return false;
+        }
+
+        // Set isOperatorChosen to true so we start writing to secondNumber
+        isOperatorChosen = true;
+
+        // Store off the operator
+        operator = $(this).val();
+
+        // Set the HTML of the #operator to the text of what was clicked
+        $("#operator").text($(this).text());
+
+      });
+      $(".equal").on("click", function() {
+
+        // If we already clicked equal, don't do the calculation again
+        if (isCalculated) {
+          return false;
+        }
+
+        // Set isCalculated to true so that we don't get in a weird UI state by clicking buttons again
+        isCalculated = true;
+
+        // Use parseInt to convert our string representation of numbers into actual integers
+        firstNumber = parseInt(firstNumber);
+        secondNumber = parseInt(secondNumber);
+
+        // Based on the operator that was chosen.
+        // Then run the operation and set the HTML of the result of that operation
+        if (operator === "plus") {
+          result = firstNumber + secondNumber;
+        }
+
+        else if (operator === "minus") {
+          result = firstNumber - secondNumber;
+        }
+
+        else if (operator === "times") {
+          result = firstNumber * secondNumber;
+        }
+
+        else if (operator === "divide") {
+          result = firstNumber / secondNumber;
+        }
+
+        else if (operator === "power") {
+          result = Math.pow(firstNumber, secondNumber);
+        }
+
+        $("#result").text(result);
+
+      });
+      $(".clear").on("click", function() {
+
+        // Call initializeCalculator so we can reset the state of our app
+        initializeCalculator();
+
+      });
+
+      // Call initializeCalculator so we can set the state of our app
+      initializeCalculator();
+    });
+
+</script>
+
+</body>
+</html>

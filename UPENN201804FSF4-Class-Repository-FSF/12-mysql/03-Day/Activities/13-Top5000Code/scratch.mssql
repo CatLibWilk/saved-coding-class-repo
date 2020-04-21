@@ -1,0 +1,9 @@
+SELECT artist, Count(*) cnt
+FROM top5000
+GROUP BY artist
+HAVING cnt >1
+ORDER BY cnt;
+
+SELECT * FROM top5000
+WHERE position BETWEEN ? AND ?
+

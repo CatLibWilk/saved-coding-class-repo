@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Content!</title>
+</head>
+<body>
+
+  <h1>Drink Selection!</h1>
+  <hr>
+
+  <!-- Here we create a generic drink-options div -->
+  <div id="drink-options"></div>
+  <button id="btn">see drink list</button>
+  <button id="resetBtn">Reset</button>
+
+  <script type="text/javascript">
+
+    // Array holds all of the drinks available
+    var drinkList = [
+      "Coffee: $5",
+      "Espresso: $7",
+      "Cappuccino: $6",
+      "Latte: $4",
+      "Tea: $3",
+      "Ice Coffee: $6",
+      "Ice Espresso: $8",
+      "Ice Latte: $6",
+      "Ice Tea: $4"
+    ];
+
+    // 1. Create code that "grabs" the div with the matching id (#drink-options);
+    // ...
+    var drinkDiv = document.getElementById("drink-options");
+    var button = document.getElementById("btn");
+    var body = document.querySelector("body");
+    var reset = document.getElementById("resetBtn");
+
+
+    // ...
+
+
+    // 2. Create a for loop that creates HTML content of all the drinks using JavaScript.
+    // HINT: You will need to use each of the following methods: createElement, textContent, appendChild
+    // ...
+    function makeList (){
+      for (i=0;i<drinkList.length; i++){
+        var drinkItem = document.createElement("p");
+        drinkItem.textContent = drinkList[i];
+        drinkDiv.appendChild(drinkItem);
+      }
+      body.setAttribute("style", "background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjrsudovBb-3vQdLFYo55PX9wy7b3xKttMW4N0osRHyTCln0yb)"); 
+      body.setAttribute
+    }
+
+    function resetR (){
+      body.removeAttribute("style");
+      drinkDiv.innerHTML="";
+    }
+
+    button.addEventListener('click', makeList);
+    reset.addEventListener('click', resetR);
+   
+    // ...
+
+  </script>
+
+</body>
+</html>

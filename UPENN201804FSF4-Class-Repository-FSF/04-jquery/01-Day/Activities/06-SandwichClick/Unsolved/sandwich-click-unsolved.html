@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Trigger Clicked</title>
+
+  <!-- Added link to the jQuery Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+  <h1>Click to Eat Sandwich</h1>
+  <h3 id="pbj">Peanut Butter Jelly</h3>
+      <div id="pbj-div"></div>
+  <h3 id="grilledcheese">Grilled Cheese</h3>
+      <div id="grilled-div"></div>
+  <h3 id="roastbeef">Roast Beef</h3>
+      <div id="beef-div"></div>
+
+  <img id="image-div">
+
+  <script type="text/javascript">
+
+    // This document.ready isn't necessary in this example... but is needed in cases where the HTML is complex.
+    // This code makes sure that the JavaScript doesn't get run until the HTML is finished loading
+    // It's useful to become familiar with now.
+
+    $(document).ready(function() {
+
+      // VARIABLES
+      // ====================================================================
+      // Here we create variables for tracking the number of sandwiches eaten
+      // ...
+      var pbjEaten = 0;
+      var grilledEaten = 0;
+      var beefEaten = 0;
+
+      // ...
+
+      // FUNCTIONS
+      // ====================================================================
+      // Here we create various on "click" functions which capture the clicks
+      // Inside each click event is the code to create an alert, update the counter, then show the updated count.
+      // ...
+
+$("#pbj").on("click", function(){
+  alert("You're a child.");
+  pbjEaten = pbjEaten + 1;
+    $("#pbj-div").text(pbjEaten + " pbj eaten.");
+    $("#image-div").attr("src", "https://upload.wikimedia.org/wikipedia/commons/e/e6/BLT_sandwich_on_toast.jpg");
+})    
+$("#grilledcheese").on("click", function(){
+  alert("You're a disgusting pig.");
+  grilledEaten = grilledEaten + 1;
+    $("#grilled-div").text(grilledEaten + " grilled cheese eaten.");
+    $("#image-div").attr("src", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Sandwich9200280.jpg/1024px-Sandwich9200280.jpg");
+})
+$("#roastbeef").on("click", function(){
+  alert("Meat is murder.");
+  beefEaten = beefEaten + 1;
+    $("#beef-div").text(beefEaten + " roast beef eaten.");
+    $("#image-div").attr("src", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Olive_and_red_Tomato_sandwich.JPG/1024px-Olive_and_red_Tomato_sandwich.JPG");
+})
+      // ...
+
+    });
+
+</script>
+
+</body>
+
+</html>

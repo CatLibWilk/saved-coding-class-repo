@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Favorite Movies</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h2>Basic Table</h2>
+    <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Movie Name</th>
+          <th scope="col">Year</th>
+          <th scope="col">Actors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Insert movie rows here -->
+      </tbody>
+    </table>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    // The below code fills in the first row of the table
+    var movie = ["Mr. Nobody", "Doctor Zhivago", "Goldfinger", "Z", "Alex"];
+    var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+    var sortContainer = [];
+    for(var i=0; i<movie.length; i++){
+         $.ajax({
+           url: "https://www.omdbapi.com/?t=" + movie[i] + "&y=&plot=short&apikey=trilogy",
+           method: "GET"
+        }).then(function(response) {
+            var title = response.Title;
+            var year = response.Year;
+
+            var myObj = {
+                title,
+                year
+            }   
+            sortContainer.push(myObj);
+            return sortContainer;
+        }
+    ).then(function(value){
+        var sorted = value.sort(sortFun);
+
+        return sorted;
+    }).then(function display(sortedMovies){
+        
+        for(var j=0; j<sortedMovies.length; j++){
+            console.log(sortedMovies);
+        console.log(sortedMovies[1].title);
+        // Obtain a reference to the tbody element in the DOM
+            var body = $("tbody");
+      // Create and save a reference to new empty table row
+            var newRow = $("<tr>");
+      // Create and save references to 3 td elements containing the Title, Year, and Actors from the AJAX response object
+            var title = sortedMovies[j].title; 
+                var titleTd = $("<td>").text(title);
+            var year = sortedMovies[j].year;
+                var yearTd = $("<td>").text(year);
+
+      // Append the td elements to the new table row
+            newRow.append(titleTd, yearTd);
+      // Append the table row to the tbody element
+            body.append(newRow);
+        }
+
+    });
+
+
+    function sortFun(a,b){
+        var valA = a.title;
+        var valB = b.title;
+        if(valA < valB){
+            return -1;
+        }
+        if(valA > valB){
+            return 1;
+        }
+        return 0;
+
+    }
+
+  </script>
+</body>
+
+</html>

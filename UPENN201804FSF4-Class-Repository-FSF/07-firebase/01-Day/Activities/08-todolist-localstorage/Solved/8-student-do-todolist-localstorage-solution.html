@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>Local Storage To-Do List</title>
+</head>
+
+<body>
+
+  <h1>To-Do List Persisted with Local Storage</h1>
+
+  <form>
+    <input type="text">
+    <input type="submit" value="save">
+  </form>
+
+  <div id="todo-list"></div>
+
+  <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+  <script type="text/javascript">
+  var list = JSON.parse(localStorage.getItem("todolist"));
+
+  if(!Array.isArray(list)){
+    list = [];
+  }
+  
+  function onPage(){
+    $("#todo-list").empty();
+    var insideList = JSON.parse(localStorage.getItem("todolist"));
+    
+
+    if(!Array.isArray(insideList)){
+      insideList = [];
+    }
+
+    for (var i = 0; i<insideList.length; i++){
+      var p = $("<p>").text(insideList[i]);
+      var b = $("<button class='delete'>").attr("data-index", i);
+      p.prepend(b);
+      $("#todo-list").prepend(p);
+    }
+  }
+
+  onPage();
+
+  $("input[type='submit']").on("click", function(event){
+
+    event.preventDefault();
+    if($("input[type='text']").val() === ""){
+      alert("please enter text");
+    }else{
+
+    var task = $("input[type='text']").val();
+    list.push(task);
+    $("input[type='text']").val("");
+
+    localStorage.setItem("todolist", JSON.stringify(list));
+    onPage();
+    }
+  });
+
+  $(document).on("click", "button.delete", function(){
+    console.log("click");
+      var selectIndex = $(this).attr("data-index");
+      var todolist = JSON.parse(localStorage.getItem("todolist"));
+      todolist.splice(selectIndex, 1);
+      list = todolist;
+
+      localStorage.setItem("todolist", JSON.stringify(todolist));
+
+      onPage();
+  });
+
+  </script>
+</body>
+
+</html>
